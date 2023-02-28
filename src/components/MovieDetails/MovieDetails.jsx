@@ -1,58 +1,94 @@
-import { useParams } from 'react-router-dom';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getMovieDetails } from 'utils/API';
+import { Loader } from 'components/Loader/Loader';
+import {
+  AdditionalInformationContainer,
+  MovieDetailsContainer,
+} from './MovieDetails.styled';
+import { BackLink } from 'components/BackLink/BackLink';
 
 export function MovieDetails() {
   const [movie, setMovie] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const { movieId } = useParams();
+
+  const location = useLocation();
+  const backLinkHref = location.state?.from ?? '/';
+  // const navigate = useNavigate();
 
   useEffect(() => {
     const getMovie = async () => {
       try {
+        setLoading(true);
         const response = await getMovieDetails(movieId);
         setMovie(response);
       } catch (error) {
+        setError(error);
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     };
 
     getMovie(movieId);
   }, [movieId]);
 
-  const { title, vote_average, overview, posterUrl, genres, id } = movie;
+  // const handleClick = () => {
+  //   navigate();
+  // };
+
+  const { title, vote_average, overview, posterUrl, genres, id, release_date } =
+    movie;
+
   return (
     <>
-      {id && (
-        <div style={{ display: 'flex' }}>
-          <div>
-            <img src={posterUrl} alt={title} />
-          </div>
-          <div>
-            <h1>{title}</h1>
+      <section>
+        {loading && <Loader />}
+        {error && <h2>Oops, something went wrong... </h2>}
+        {id && (
+          <>
+            <BackLink to={backLinkHref} />
+            <MovieDetailsContainer>
+              <div>
+                <img
+                  src={posterUrl}
+                  alt={title}
+                  width={'400px'}
+                  height={'500px'}
+                />
+              </div>
+              <div>
+                <h1>
+                  {title} ({release_date.slice(0, 4)})
+                </h1>
 
-            <p>
-              <b> User score:</b> {vote_average}
-            </p>
-            <p>{overview}</p>
-            <p>
-              <b>Genres:</b> {genres.map(genre => genre.name).join(', ')}
-            </p>
-          </div>
-        </div>
-      )}
+                <p>
+                  <b> User score:</b> {vote_average}
+                </p>
+                <p>{overview}</p>
+                <p>
+                  <b>Genres:</b> {genres.map(genre => genre.name).join(', ')}
+                </p>
+              </div>
+            </MovieDetailsContainer>
+            <AdditionalInformationContainer>
+              <p>Additional information</p>
+              <ul>
+                <li>
+                  <Link to="cast">cast</Link>
+                </li>
 
-      <p>Additional information</p>
-      <ul>
-        <li>
-          <Link to="cast">cast</Link>
-        </li>
-
-        <li>
-          <Link to="reviews">reviews</Link>
-        </li>
-      </ul>
-      <Outlet />
+                <li>
+                  <Link to="reviews">reviews</Link>
+                </li>
+              </ul>
+            </AdditionalInformationContainer>
+            <Outlet />
+          </>
+        )}
+      </section>
     </>
   );
 }

@@ -8,12 +8,12 @@ export const SharedLayout = () => {
           <SyyledList>
             <li>
               <StyledLink to="/">
-                <b>Home</b>{' '}
+                <b>Home</b>
               </StyledLink>
             </li>
             <li>
               <StyledLink to="/movies">
-                <b>Movies</b>{' '}
+                <b>Movies</b>
               </StyledLink>
             </li>
           </SyyledList>
