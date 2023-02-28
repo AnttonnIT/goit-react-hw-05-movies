@@ -1,3 +1,10 @@
 export function Movies() {
-  return;
+  return (
+    <form>
+      <label>
+        <input type="text" />
+      </label>
+      <button type="submit">Search</button>
+    </form>
+  );
 }
