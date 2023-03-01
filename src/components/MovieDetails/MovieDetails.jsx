@@ -5,10 +5,12 @@ import { Loader } from 'components/Loader/Loader';
 import {
   AdditionalInformationContainer,
   MovieDetailsContainer,
+  MovieDetailsContent,
 } from './MovieDetails.styled';
 import { BackLink } from 'components/BackLink/BackLink';
+import { Suspense } from 'react';
 
-export function MovieDetails() {
+export default function MovieDetails() {
   const [movie, setMovie] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -54,7 +56,7 @@ export function MovieDetails() {
                   height={'500px'}
                 />
               </div>
-              <div>
+              <MovieDetailsContent>
                 <h1>
                   {title} ({release_date.slice(0, 4)})
                 </h1>
@@ -66,7 +68,7 @@ export function MovieDetails() {
                 <p>
                   <b>Genres:</b> {genres.map(genre => genre.name).join(', ')}
                 </p>
-              </div>
+              </MovieDetailsContent>
             </MovieDetailsContainer>
             <AdditionalInformationContainer>
               <p>Additional information</p>
@@ -84,7 +86,9 @@ export function MovieDetails() {
                 </li>
               </ul>
             </AdditionalInformationContainer>
-            <Outlet />
+            <Suspense fallback={<div>Loading subpage...</div>}>
+              <Outlet />
+            </Suspense>
           </>
         )}
       </section>

@@ -14,7 +14,7 @@ export const getTrendingMovies = async (page = 1) => {
   const { data } = await axios.get(
     `${END_POINT.trending}?api_key=${API_KEY}&page=${page}`
   );
-  // console.log(data);
+
   return data;
 };
 
@@ -40,8 +40,7 @@ export const getMovieCast = async id => {
   const { data } = await axios.get(
     `/movie/${id}${END_POINT.movieCast}?api_key=${API_KEY}`
   );
-  // console.log();
-  // /cckcYc2v0yh1tc9QjRelptcOBko.jpg
+
   return data.cast.slice(0, 10);
 };
 

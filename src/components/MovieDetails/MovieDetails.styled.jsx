@@ -10,3 +10,9 @@ export const AdditionalInformationContainer = styled.div`
   border-top: 1px solid black;
   border-bottom: 1px solid black;
 `;
+
+export const MovieDetailsContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+`;

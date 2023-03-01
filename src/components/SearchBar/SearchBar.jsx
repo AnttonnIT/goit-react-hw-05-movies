@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
@@ -23,6 +24,7 @@ export function SearchBar({ onSearch }) {
     setSearchParams({ query });
     event.currentTarget.reset();
   };
+
   return (
     <form onSubmit={handleSubmit}>
       <label>
@@ -32,3 +34,7 @@ export function SearchBar({ onSearch }) {
     </form>
   );
 }
+
+SearchBar.propTypes = {
+  onSearch: PropTypes.func.isRequired,
+};

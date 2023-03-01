@@ -12,5 +12,13 @@ export const BackLink = ({ to }) => {
 };
 
 BackLink.propTypes = {
-  to: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
+  to: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.shape({
+      pathname: PropTypes.string.isRequired,
+      search: PropTypes.string.isRequired,
+      hash: PropTypes.string.isRequired,
+      state: PropTypes.object,
+    }).isRequired,
+  ]).isRequired,
 };
