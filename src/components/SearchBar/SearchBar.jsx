@@ -1,18 +1,8 @@
 import PropTypes from 'prop-types';
-import { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useState } from 'react';
 
 export function SearchBar({ onSearch }) {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const searchQuery = searchParams.get('query');
-  const [query, setQuery] = useState(searchQuery ?? '');
-
-  useEffect(() => {
-    if (!searchQuery) {
-      return;
-    }
-    onSearch(searchQuery);
-  }, [onSearch, searchQuery]);
+  const [query, setQuery] = useState('');
 
   const handleQuerySearch = e => {
     setQuery(e.target.value.trim().toLowerCase());
@@ -21,7 +11,7 @@ export function SearchBar({ onSearch }) {
   const handleSubmit = event => {
     event.preventDefault();
 
-    setSearchParams({ query });
+    onSearch(query);
     event.currentTarget.reset();
   };
 
