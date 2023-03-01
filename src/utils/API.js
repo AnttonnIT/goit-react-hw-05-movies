@@ -40,7 +40,6 @@ export const getMovieCast = async id => {
   const { data } = await axios.get(
     `/movie/${id}${END_POINT.movieCast}?api_key=${API_KEY}`
   );
-
   return data.cast.slice(0, 10);
 };
 
