@@ -16,7 +16,6 @@ export function MovieDetails() {
 
   const location = useLocation();
   const backLinkHref = location.state?.from ?? '/';
-  // const navigate = useNavigate();
 
   useEffect(() => {
     const getMovie = async () => {
@@ -34,10 +33,6 @@ export function MovieDetails() {
 
     getMovie(movieId);
   }, [movieId]);
-
-  // const handleClick = () => {
-  //   navigate();
-  // };
 
   const { title, vote_average, overview, posterUrl, genres, id, release_date } =
     movie;
@@ -77,11 +72,15 @@ export function MovieDetails() {
               <p>Additional information</p>
               <ul>
                 <li>
-                  <Link to="cast">cast</Link>
+                  <Link to="cast" state={location.state}>
+                    cast
+                  </Link>
                 </li>
 
                 <li>
-                  <Link to="reviews">reviews</Link>
+                  <Link to="reviews" state={location.state}>
+                    reviews
+                  </Link>
                 </li>
               </ul>
             </AdditionalInformationContainer>

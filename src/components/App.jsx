@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
+import { lazy } from 'react';
 
 import { Home } from './Home/Home';
 import { MovieDetails } from './MovieDetails/MovieDetails';

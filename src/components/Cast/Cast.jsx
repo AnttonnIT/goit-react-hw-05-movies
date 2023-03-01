@@ -32,12 +32,15 @@ export function Cast() {
       {error && <h2>Oops, something went wrong... </h2>}
       {cast.map(({ id, name, profile_path, character }) => (
         <li key={id}>
-          <img
-            src={`https://image.tmdb.org/t/p/w200${profile_path}`}
-            alt={name}
-            width={'200px'}
-            height={'300px'}
-          />
+          {profile_path && (
+            <img
+              src={`https://image.tmdb.org/t/p/w200${profile_path}`}
+              alt={name}
+              width={'200px'}
+              height={'300px'}
+            />
+          )}
+
           <p> {name}</p>
           <p>Character: {character}</p>
         </li>
